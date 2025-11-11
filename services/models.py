@@ -35,14 +35,3 @@ class ServicePricing(models.Model):
 
     def __str__(self):
         return f"{self.service.name} pricing"
-    
-class Certification(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    issued_date = models.DateField()
-    expiry_date = models.DateField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
