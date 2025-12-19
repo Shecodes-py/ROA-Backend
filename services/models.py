@@ -9,13 +9,39 @@ class Service(models.Model):
         ('laundry services', 'Laundry Services'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
     service_type = models.CharField(max_length=50, choices=SERVICE_TYPES)
+    name = models.CharField(max_length=100) # e.g., "Standard Cleaning", "Deep Fumigation"
     description = models.TextField()
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
+    is_active = models.BooleanField(default=True)
+
+    FIXED_PRICES = {
+        ('cleaning services', 'residential', 'small'): 15000.00,
+        ('cleaning services', 'residential', 'medium'): 22500.00,
+        ('cleaning services', 'residential', 'large'): 30000.00,
+        ('cleaning services', 'commercial', 'small'): 37500.00,
+        ('cleaning services', 'commercial', 'medium'): 50000.00,
+        ('cleaning services', 'commercial', 'large'): 80000.00,
+        ('cleaning services', 'commercial', 'commercial_space'): 100000.00,
+
+        # Fumigation Services
+        ('fumigation services', None, 'small'): 25000.00,
+        ('fumigation services', None, 'medium'): 35000.00,
+        ('fumigation services', None, 'large'): 55000.00,
+        ('fumigation services', None, 'commercial_space'): 150000.00,
+        
+        # Laundry Services
+        ('laundry services', None, None): 5000.00,  # per load
+    }
+    
+    @classmethod
+    def get_price(self, service_subtype=None, property_size=None):
+        """Retrieve fixed price based on service type, subtype, and property size."""
+        key = (self.service_type.split()[0], service_subtype, property_size)
+        return self.FIXED_PRICES.get(key, self.base_price)
 
     def __str__(self):
-        return f"{self.service_type} booked by {self.user.username}"
+        return f"{self.name} ({self.get_service_type_display()})"
 
 class PropertySize(models.TextChoices):
     SMALL = 'small', 'Small'
@@ -54,13 +80,13 @@ class FumigationServiceOption(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.service.name} - {self.property_size}"
+        return f"{self.service.service_type} - {self.property_size}"
 
 class LaundryServiceOption(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='laundry_services')
     # this could be extended with more specific laundry options in the future
     def __str__(self):
-        return f"{self.service.name} Laundry Option"
+        return f"{self.service.service_type} Laundry Option"
 
 class AddOnType(models.TextChoices):
     DEEP_CLEANING = 'deep_cleaning', 'Deep Cleaning (+₦5,000)'
@@ -87,7 +113,7 @@ class AdditionalService(models.Model):
     def __str__(self):
         return f"{self.get_addon_type_display()}"
 
-class TimeSlot(models.TextChoices):
+class TimeSlot(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     is_available = models.BooleanField(default=True)
@@ -129,20 +155,32 @@ class ServiceLocation(models.Model):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.address_line1}, {self.city}, {self.country}"
+        return f"{self.address_line}, {self.area}"
+
+class StatusChoice(models.TextChoices):
+    PENDING = 'pending', 'Pending'
+    CONFIRMED = 'confirmed', 'Confirmed'
+    IN_PROGRESS = 'in_progress', 'In Progress'
+    COMPLETED = 'completed', 'Completed'
+    CANCELLED = 'cancelled', 'Cancelled'
 
 # Main booking Model
 class Booking(models.Model):
     """The main model to hold a customer's confirmed booking."""
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
-    main_service = models.ForeignKey(Service, on_delete=models.PROTECT, related_name='bookings')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings')
+    main_service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, related_name='bookings')
     additional_services = models.ManyToManyField(AdditionalService, blank=True)
-    schedule = models.ForeignKey(Schedule, on_delete=models.PROTECT, related_name='bookings')
+    schedule = models.ForeignKey(Schedule, on_delete=models.SET_NULL, null=True, related_name='bookings')
     booked_at = models.DateTimeField(auto_now_add=True) 
+    location = models.ForeignKey(ServiceLocation, on_delete=models.SET_NULL, null=True, related_name='bookings')
+    # status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.PENDING)
 
     def total_price(self):
-        pass  # Implementation of total price calculation goes here
-    
+        total = self.main_service.base_price
+        for addon in self.additional_services.all():
+            total += addon.price
+        return total
+
     def __str__(self):
         return f"Booking by {self.user.username} for {self.main_service.service_type}"
 
