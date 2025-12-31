@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Center - ROA Investment Limited | Secure Payment Processing</title>
+    <meta name="description" content="Secure payment processing for ROA Investment Limited services. Multiple payment options including Pi cryptocurrency, traditional Nigerian methods, and automated billing solutions.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Froaelite8420back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"></script>
+  <script type="module" src="https://static.rocket.new/rocket-shot.js?v=0.0.1"></script>
+  </head>
+<body class="bg-background">
+    <!-- Sticky Booking Bar -->
+    <div class="fixed top-0 left-0 right-0 bg-primary text-white py-2 px-4 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <span class="text-sm font-medium">🔒 Secure Payment Processing - SSL Encrypted</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="booking_system.html" class="bg-white text-primary px-4 py-1 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">
+                    Book Now
+                </a>
+                <a href="https://wa.me/2348022906307" class="text-white hover:text-gray-200 transition-colors">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1dd1b2bbd-1762188901196.png" alt="WhatsApp contact icon" class="w-6 h-6" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <circle cx="20" cy="20" r="18" fill="currentColor" opacity="0.1"/>
+                            <path d="M12 16h16v2H12v-2zm0 4h16v2H12v-2zm0 4h12v2H12v-2z" fill="currentColor"/>
+                            <circle cx="20" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-gray-900">ROA Investment Limited</h1>
+                        <p class="text-xs text-gray-500">Professional Cleaning Services</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="homepage.html" class="text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="services.html" class="text-gray-700 hover:text-primary transition-colors">Services</a>
+                    <a href="booking_system.html" class="text-gray-700 hover:text-primary transition-colors">Book Now</a>
+                    <a href="customer_dashboard.html" class="text-gray-700 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="payment_center.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Payments</a>
+                </nav>
+
+                <!-- Trust Badges -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16c16761c-1762188902122.png" alt="WRKMAN Elite certification badge" class="w-8 h-8 rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <span class="text-xs text-gray-600">WRKMAN Elite</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14e9b6a3e-1762188899027.png" alt="LCDA certification badge" class="w-8 h-8 rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <span class="text-xs text-gray-600">LCDA Certified</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-700 hover:text-primary" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 py-4">
+                <div class="space-y-2">
+                    <a href="homepage.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Home</a>
+                    <a href="services.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Services</a>
+                    <a href="booking_system.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Book Now</a>
+                    <a href="customer_dashboard.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Dashboard</a>
+                    <a href="payment_center.html" class="block px-3 py-2 text-primary font-semibold">Payments</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Payment Center Hero -->
+    <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-6">
+                <div class="flex items-center justify-center space-x-3">
+                    <svg class="w-12 h-12 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Payment Center</h1>
+                </div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Secure, flexible payment processing with multiple options including traditional Nigerian methods and innovative Pi cryptocurrency integration.
+                </p>
+                
+                <!-- Security Badges -->
+                <div class="flex items-center justify-center space-x-6 pt-4">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
+                        <span class="text-sm font-medium text-gray-700">SSL Encrypted</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM15.1 8H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                        <span class="text-sm font-medium text-gray-700">Secure Processing</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-sm font-medium text-gray-700">PCI Compliant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Options -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    Multiple Payment Options
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Choose from traditional Nigerian payment methods or innovative cryptocurrency options
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Traditional Payment Methods -->
+                <div class="space-y-8">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Traditional Payments</h3>
+                        <p class="text-gray-600">Secure processing with Nigerian banking integration</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Bank Transfer -->
+                        <div class="card hover:shadow-elevated transition-all duration-300 cursor-pointer" onclick="selectPaymentMethod('bank-transfer')">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">Bank Transfer</h4>
+                                    <p class="text-sm text-gray-600">Direct transfer to our verified business account</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-medium text-secondary">Instant</span>
+                                    <p class="text-xs text-gray-500">No fees</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Debit/Credit Cards -->
+                        <div class="card hover:shadow-elevated transition-all duration-300 cursor-pointer" onclick="selectPaymentMethod('card')">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">Debit/Credit Cards</h4>
+                                    <p class="text-sm text-gray-600">Visa, Mastercard, Verve accepted</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-medium text-secondary">Instant</span>
+                                    <p class="text-xs text-gray-500">2.5% fee</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Money -->
+                        <div class="card hover:shadow-elevated transition-all duration-300 cursor-pointer" onclick="selectPaymentMethod('mobile-money')">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H7V6h10v10z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">Mobile Money</h4>
+                                    <p class="text-sm text-gray-600">MTN, Airtel, Glo mobile payments</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-medium text-secondary">Instant</span>
+                                    <p class="text-xs text-gray-500">1.5% fee</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- USSD -->
+                        <div class="card hover:shadow-elevated transition-all duration-300 cursor-pointer" onclick="selectPaymentMethod('ussd')">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">USSD Payments</h4>
+                                    <p class="text-sm text-gray-600">Quick dial codes for all major banks</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-medium text-secondary">Instant</span>
+                                    <p class="text-xs text-gray-500">₦50 fee</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pi Cryptocurrency Payment -->
+                <div class="space-y-8">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Pi Cryptocurrency</h3>
+                        <p class="text-gray-600">Revolutionary payment method for the digital future</p>
+                    </div>
+
+                    <!-- Pi Payment Card -->
+                    <div class="card-elevated bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200">
+                        <div class="text-center space-y-6">
+                            <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto">
+                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Pi Network Payment</h4>
+                                <p class="text-gray-600 mb-4">Pay with Pi cryptocurrency - the future of digital transactions</p>
+                                <div class="bg-white rounded-lg p-4 border border-purple-200">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600">Exchange Rate</span>
+                                        <span class="text-sm font-medium text-gray-900">1 Pi = ₦2,500</span>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600">Transaction Fee</span>
+                                        <span class="text-sm font-medium text-secondary">0% (Free)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Processing Time</span>
+                                        <span class="text-sm font-medium text-secondary">Instant</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-primary w-full" onclick="selectPaymentMethod('pi-crypto')">
+                                Pay with Pi Cryptocurrency
+                            </button>
+                            <div class="flex items-center justify-center space-x-2 text-xs text-gray-500">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                                </svg>
+                                <span>Blockchain secured & environmentally friendly</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pi Benefits -->
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Zero transaction fees</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Instant global transactions</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Eco-friendly blockchain technology</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">Enhanced privacy and security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Form Section -->
+    <section class="py-20 bg-surface">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="card-elevated">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Complete Your Payment</h2>
+                    <p class="text-gray-600">Secure checkout with end-to-end encryption</p>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                    <h3 class="font-semibold text-gray-900 mb-4">Payment Summary</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Deep Cleaning Service</span>
+                            <span class="font-medium text-gray-900">₦25,000.00</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Fumigation Add-on</span>
+                            <span class="font-medium text-gray-900">₦15,000.00</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Service Fee</span>
+                            <span class="font-medium text-gray-900">₦2,000.00</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-semibold text-gray-900">Total Amount</span>
+                                <span class="text-lg font-bold text-primary">₦42,000.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <form id="payment-form" class="space-y-6">
+                    <!-- Payment Method Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Selected Payment Method</label>
+                        <div id="selected-method" class="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                </svg>
+                                <span class="font-medium text-gray-900">Debit/Credit Card</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Details -->
+                    <div id="card-details" class="space-y-4">
+                        <div>
+                            <label for="card-number" class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+                            <input type="text" id="card-number" class="input-field" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+                                <input type="text" id="expiry-date" class="input-field" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div>
+                                <label for="cvv" class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+                                <input type="text" id="cvv" class="input-field" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="cardholder-name" class="block text-sm font-medium text-gray-700 mb-2">Cardholder Name</label>
+                            <input type="text" id="cardholder-name" class="input-field" placeholder="John Doe">
+                        </div>
+                    </div>
+
+                    <!-- Billing Information -->
+                    <div class="space-y-4">
+                        <h3 class="font-semibold text-gray-900">Billing Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="billing-email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="billing-email" class="input-field" placeholder="john@example.com" value="adebayo.ogundimu@email.com">
+                            </div>
+                            <div>
+                                <label for="billing-phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="billing-phone" class="input-field" placeholder="+234 801 234 5678" value="+234 801 234 5678">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="billing-address" class="block text-sm font-medium text-gray-700 mb-2">Billing Address</label>
+                            <textarea id="billing-address" class="input-field" rows="3" placeholder="Enter your billing address">15 Admiralty Way, Lekki Phase 1, Lagos</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Save Payment Method -->
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" id="save-payment" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary-500">
+                        <label for="save-payment" class="text-sm text-gray-700">Save this payment method for future use</label>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="terms" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary-500 mt-1" required>
+                        <label for="terms" class="text-sm text-gray-700">
+                            I agree to the <a href="javascript:void(0)" class="text-primary hover:underline">Terms of Service</a> and <a href="javascript:void(0)" class="text-primary hover:underline">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary w-full text-lg py-4">
+                        <span class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                            </svg>
+                            <span>Pay ₦42,000.00 Securely</span>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Saved Payment Methods -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Saved Payment Methods</h2>
+                <p class="text-gray-600">Manage your saved payment options for faster checkout</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Saved Card 1 -->
+                <div class="card hover:shadow-elevated transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Visa ending in 3456</h4>
+                                <p class="text-sm text-gray-600">Expires 12/26 • Default payment method</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="text-primary hover:text-primary-700 text-sm font-medium">Edit</button>
+                            <button class="text-accent hover:text-accent-700 text-sm font-medium">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Card 2 -->
+                <div class="card hover:shadow-elevated transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Mastercard ending in 7890</h4>
+                                <p class="text-sm text-gray-600">Expires 08/27</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="text-primary hover:text-primary-700 text-sm font-medium">Edit</button>
+                            <button class="text-accent hover:text-accent-700 text-sm font-medium">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pi Wallet -->
+                <div class="card hover:shadow-elevated transition-all duration-300 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Pi Cryptocurrency Wallet</h4>
+                                <p class="text-sm text-gray-600">Balance: 25.7 Pi (≈ ₦64,250)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="badge-success">Connected</span>
+                            <button class="text-primary hover:text-primary-700 text-sm font-medium">Manage</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add New Payment Method -->
+                <div class="card border-2 border-dashed border-gray-300 hover:border-primary transition-colors cursor-pointer" onclick="addNewPaymentMethod()">
+                    <div class="text-center py-8">
+                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        <h4 class="font-semibold text-gray-900 mb-2">Add New Payment Method</h4>
+                        <p class="text-sm text-gray-600">Add a new card or payment option</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment History -->
+    <section class="py-20 bg-surface">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Payment History</h2>
+                <p class="text-gray-600">Track all your transactions and download receipts</p>
+            </div>
+
+            <div class="card-elevated">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 01, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Deep Cleaning + Fumigation</div>
+                                    <div class="text-sm text-gray-500">Booking #ROA-2025-001</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₦42,000.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                                        </svg>
+                                        <span class="text-sm text-gray-900">Visa •••• 3456</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge-success">Completed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary hover:text-primary-700 mr-3">Receipt</button>
+                                    <button class="text-secondary hover:text-secondary-700">Refund</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Oct 28, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Laundry Service</div>
+                                    <div class="text-sm text-gray-500">Booking #ROA-2025-002</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₦8,500.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full"></div>
+                                        <span class="text-sm text-gray-900">Pi Crypto</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge-success">Completed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary hover:text-primary-700 mr-3">Receipt</button>
+                                    <button class="text-secondary hover:text-secondary-700">Refund</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Oct 25, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">Regular Cleaning</div>
+                                    <div class="text-sm text-gray-500">Booking #ROA-2025-003</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₦18,000.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                                        </svg>
+                                        <span class="text-sm text-gray-900">Bank Transfer</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge-warning">Pending</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary hover:text-primary-700 mr-3">Track</button>
+                                    <button class="text-accent hover:text-accent-700">Cancel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <circle cx="20" cy="20" r="18" fill="currentColor" opacity="0.1"/>
+                            <path d="M12 16h16v2H12v-2zm0 4h16v2H12v-2zm0 4h12v2H12v-2z" fill="currentColor"/>
+                            <circle cx="20" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-bold">ROA Investment Limited</h3>
+                            <p class="text-sm text-gray-400">Professional Cleaning Services</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">
+                        Your trusted cleaning partner with certified excellence. Pioneering the future of cleaning services through technology.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1597724982201-ac9939c5fcb2" alt="WRKMAN Elite certification" class="w-12 h-8 object-contain bg-white rounded px-1" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <img src="https://images.unsplash.com/photo-1528285482182-1ad23a176190" alt="LCDA certification" class="w-12 h-8 object-contain bg-white rounded px-1" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Our Services</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="services.html" class="hover:text-white transition-colors">Residential Cleaning</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Commercial Cleaning</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Fumigation Services</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Laundry Services</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Deep Cleaning</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="booking_system.html" class="hover:text-white transition-colors">Book Service</a></li>
+                        <li><a href="customer_dashboard.html" class="hover:text-white transition-colors">Customer Portal</a></li>
+                        <li><a href="payment_center.html" class="hover:text-white transition-colors">Payment Options</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Contact Us</h4>
+                    <div class="space-y-3 text-gray-400">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            <span>+234 812 345 6789</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <span>info@roaeliteclean.com</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span>Lagos, Nigeria</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/2348022906307" class="text-gray-400 hover:text-white transition-colors">
+                            <img src="https://images.unsplash.com/photo-1690883793939-f8cca2f28ee0" alt="WhatsApp social media icon" class="w-6 h-6" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ROA Investment Limited. All Rights Reserved. | WRKMAN Elite & LCDA Certified</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function selectPaymentMethod(method) {
+            const selectedMethodDiv = document.getElementById('selected-method');
+            const cardDetails = document.getElementById('card-details');
+            
+            let methodHTML = '';
+            let showCardDetails = false;
+            
+            switch(method) {
+                case 'bank-transfer':
+                    methodHTML = `
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                            </svg>
+                            <span class="font-medium text-gray-900">Bank Transfer</span>
+                        </div>`;
+                    break;
+                case 'card':
+                    methodHTML = `
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                            </svg>
+                            <span class="font-medium text-gray-900">Debit/Credit Card</span>
+                        </div>`;
+                    showCardDetails = true;
+                    break;
+                case 'mobile-money':
+                    methodHTML = `
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H7V6h10v10z"/>
+                            </svg>
+                            <span class="font-medium text-gray-900">Mobile Money</span>
+                        </div>`;
+                    break;
+                case 'ussd':
+                    methodHTML = `
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            <span class="font-medium text-gray-900">USSD Payment</span>
+                        </div>`;
+                    break;
+                case 'pi-crypto':
+                    methodHTML = `
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                </svg>
+                            </div>
+                            <span class="font-medium text-gray-900">Pi Cryptocurrency</span>
+                        </div>`;
+                    break;
+            }
+            
+            selectedMethodDiv.innerHTML = methodHTML;
+            
+            if (showCardDetails) {
+                cardDetails.style.display = 'block';
+            } else {
+                cardDetails.style.display = 'none';
+            }
+            
+            // Scroll to payment form
+            document.getElementById('payment-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addNewPaymentMethod() {
+            alert('Add new payment method functionality would be implemented here.');
+        }
+
+        // Format card number input
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date input
+        document.getElementById('expiry-date').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Form submission
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = `
+                <span class="flex items-center justify-center space-x-2">
+                    <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Processing Payment...</span>
+                </span>`;
+            submitButton.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                alert('Payment processed successfully! You will receive a confirmation email shortly.');
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }, 3000);
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .card-elevated').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
