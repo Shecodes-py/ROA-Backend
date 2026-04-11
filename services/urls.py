@@ -15,11 +15,11 @@ urlpatterns = [
     # path('api/', include(router.urls)),
 
     # Main booking page
-    path('', views.booking_page, name='booking_page'),
+    path('', views.BookingViewSet.as_view({'get': 'list'}), name='booking_page'),
     
     # API Endpoints for Frontend Form
-    path('api/create/', views.create_booking_api, name='create_booking'),
-    path('api/options/', views.get_booking_options, name='get_options'),
+    # path('api/create/', views.create_booking_api, name='create_booking'),
+    # path('api/options/', views.get_booking_options, name='get_options'),
     # path('api/availability/', views.check_availability, name='check_availability'),
     # path('api/available-dates/', views.get_available_dates, name='available_dates'),
     
