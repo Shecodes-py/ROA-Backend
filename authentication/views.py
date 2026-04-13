@@ -1,18 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from urllib3 import request
+
 
 # Create your views here.
 def index(request):
     return HttpResponse("Welcome to the Authentication System")
-
-def logout_view(request):
-    logout(request)
-    return redirect('index')
 
 class LoginViewSet(viewsets.ViewSet):
     """API endpoint for user login."""

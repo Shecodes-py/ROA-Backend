@@ -4,7 +4,6 @@ from .views import *
 urlpatterns = [
     # Authentication URLs
     path('', index, name='index'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
-    path('register/', register_view, name='register'),   
+    path('login/', LoginViewSet.as_view({'post': 'create'}), name='login'),
+    path('register/', RegisterViewSet.as_view({'post': 'create'}), name='register'),
 ]
