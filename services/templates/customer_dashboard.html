@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - ROA Investment Limited</title>
+    <meta name="description" content="Manage your ROA Investment Limited services, view history, track loyalty points, and access your account preferences in your personal dashboard.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Froaelite8420back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"></script>
+  <script type="module" src="https://static.rocket.new/rocket-shot.js?v=0.0.1"></script>
+  </head>
+<body class="bg-surface">
+    <!-- Sticky Booking Bar -->
+    <div class="fixed top-0 left-0 right-0 bg-primary text-white py-2 px-4 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <span class="text-sm font-medium">🕒 Available 24/7 for Emergency Services</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="booking_system.html" class="bg-white text-primary px-4 py-1 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">
+                    Book Now
+                </a>
+                <a href="https://wa.me/2348022906307" class="text-white hover:text-gray-200 transition-colors">
+                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f3c5c728-1762188898163.png" alt="WhatsApp contact icon" class="w-6 h-6" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <circle cx="20" cy="20" r="18" fill="currentColor" opacity="0.1"/>
+                            <path d="M12 16h16v2H12v-2zm0 4h16v2H12v-2zm0 4h12v2H12v-2z" fill="currentColor"/>
+                            <circle cx="20" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-gray-900">ROA Investment Limited</h1>
+                        <p class="text-xs text-gray-500">Professional Cleaning Services</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="homepage.html" class="text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="services.html" class="text-gray-700 hover:text-primary transition-colors">Services</a>
+                    <a href="booking_system.html" class="text-gray-700 hover:text-primary transition-colors">Book Now</a>
+                    <a href="customer_dashboard.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Dashboard</a>
+                    <a href="payment_center.html" class="text-gray-700 hover:text-primary transition-colors">Payments</a>
+                </nav>
+
+                <!-- Trust Badges -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1402dd7a6-1762188899037.png" alt="WRKMAN Elite certification badge" class="w-8 h-8 rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <span class="text-xs text-gray-600">WRKMAN Elite</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_156285b75-1762188897956.png" alt="LCDA certification badge" class="w-8 h-8 rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <span class="text-xs text-gray-600">LCDA Certified</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-700 hover:text-primary" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 py-4">
+                <div class="space-y-2">
+                    <a href="homepage.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Home</a>
+                    <a href="services.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Services</a>
+                    <a href="booking_system.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Book Now</a>
+                    <a href="customer_dashboard.html" class="block px-3 py-2 text-primary font-semibold">Dashboard</a>
+                    <a href="payment_center.html" class="block px-3 py-2 text-gray-700 hover:text-primary">Payments</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Header -->
+    <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div class="flex items-center space-x-6">
+                    <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1658908615816-c9c71d09dbb8" alt="Profile picture of Adebayo Ogundimu" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Welcome back, Adebayo!</h1>
+                        <p class="text-lg text-gray-600">Customer since March 2023 • Victoria Island</p>
+                        <div class="flex items-center space-x-4 mt-2">
+                            <div class="badge-success">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Elite Member
+                            </div>
+                            <span class="text-sm text-gray-500">Last service: Oct 28, 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="booking_system.html" class="btn-primary text-center">
+                        Book New Service
+                    </a>
+                    <button onclick="toggleAccountSettings()" class="btn-outline text-center">
+                        Account Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="py-8 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-primary">12</div>
+                    <div class="text-sm text-gray-600">Total Services</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-secondary">2,450</div>
+                    <div class="text-sm text-gray-600">Loyalty Points</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-accent">₦185,000</div>
+                    <div class="text-sm text-gray-600">Total Spent</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">5★</div>
+                    <div class="text-sm text-gray-600">Average Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard Content -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Upcoming Services -->
+                    <div class="card-elevated">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900">Upcoming Services</h2>
+                            <a href="booking_system.html" class="text-primary hover:text-primary-700 text-sm font-medium">Schedule New</a>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-primary-50 rounded-lg p-4 border-l-4 border-primary">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Deep Cleaning Service</h3>
+                                        <p class="text-sm text-gray-600">November 8, 2025 • 10:00 AM - 2:00 PM</p>
+                                        <p class="text-sm text-gray-500">3-bedroom apartment • Victoria Island</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-semibold text-primary">₦25,000</div>
+                                        <button onclick="modifyService('upcoming-1')" class="text-sm text-gray-500 hover:text-primary">Modify</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-secondary-50 rounded-lg p-4 border-l-4 border-secondary">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Fumigation Service</h3>
+                                        <p class="text-sm text-gray-600">November 15, 2025 • 9:00 AM - 12:00 PM</p>
+                                        <p class="text-sm text-gray-500">Preventive treatment • Victoria Island</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-semibold text-secondary">₦30,000</div>
+                                        <button onclick="modifyService('upcoming-2')" class="text-sm text-gray-500 hover:text-secondary">Modify</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service History -->
+                    <div class="card-elevated">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900">Recent Service History</h2>
+                            <button onclick="toggleHistoryFilter()" class="text-primary hover:text-primary-700 text-sm font-medium">Filter</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <h3 class="font-semibold text-gray-900">Office Cleaning</h3>
+                                            <span class="badge-success">Completed</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mb-2">October 28, 2025 • 2:00 PM - 5:00 PM</p>
+                                        <p class="text-sm text-gray-500">Commercial cleaning • Victoria Island office</p>
+                                        <div class="flex items-center space-x-4 mt-3">
+                                            <div class="flex text-yellow-400">
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                            </div>
+                                            <span class="text-sm text-gray-500">Technician: Michael A.</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right space-y-2">
+                                        <div class="text-lg font-semibold text-gray-900">₦20,000</div>
+                                        <div class="flex flex-col space-y-1">
+                                            <button onclick="rebookService('service-1')" class="text-sm text-primary hover:text-primary-700">Rebook</button>
+                                            <button onclick="viewInvoice('service-1')" class="text-sm text-gray-500 hover:text-gray-700">View Invoice</button>
+                                            <button onclick="viewPhotos('service-1')" class="text-sm text-gray-500 hover:text-gray-700">View Photos</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <h3 class="font-semibold text-gray-900">Laundry Service</h3>
+                                            <span class="badge-success">Completed</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mb-2">October 25, 2025 • Pickup & Delivery</p>
+                                        <p class="text-sm text-gray-500">15 items • Wash & fold service</p>
+                                        <div class="flex items-center space-x-4 mt-3">
+                                            <div class="flex text-yellow-400">
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                            </div>
+                                            <span class="text-sm text-gray-500">Technician: Sarah O.</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right space-y-2">
+                                        <div class="text-lg font-semibold text-gray-900">₦7,500</div>
+                                        <div class="flex flex-col space-y-1">
+                                            <button onclick="rebookService('service-2')" class="text-sm text-primary hover:text-primary-700">Rebook</button>
+                                            <button onclick="viewInvoice('service-2')" class="text-sm text-gray-500 hover:text-gray-700">View Invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <button onclick="loadMoreHistory()" class="text-primary hover:text-primary-700 font-medium">View All History</button>
+                        </div>
+                    </div>
+
+                    <!-- Documents & Invoices -->
+                    <div class="card-elevated">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900">Documents & Invoices</h2>
+                            <button onclick="toggleDocumentFilter()" class="text-primary hover:text-primary-700 text-sm font-medium">Filter</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">Invoice #ROA-2025-0847</h4>
+                                        <p class="text-sm text-gray-500">Office Cleaning • Oct 28, 2025</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm font-medium text-gray-900">₦20,000</span>
+                                    <button onclick="downloadDocument('invoice-847')" class="text-primary hover:text-primary-700">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">Service Agreement</h4>
+                                        <p class="text-sm text-gray-500">Annual cleaning contract • Mar 15, 2023</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="badge-success">Active</span>
+                                    <button onclick="downloadDocument('agreement-2023')" class="text-primary hover:text-primary-700">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-8">
+                    <!-- Loyalty Program -->
+                    <div class="card-elevated">
+                        <div class="text-center space-y-4">
+                            <div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto">
+                                <svg class="w-8 h-8 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Elite Member</h3>
+                                <p class="text-sm text-gray-600">2,450 Points Available</p>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-secondary h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500">550 points to next reward tier</p>
+                            <button onclick="viewRewards()" class="btn-secondary w-full">View Rewards</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button onclick="window.location.href='booking_system.html'" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                                <span>Schedule New Service</span>
+                            </button>
+                            <button onclick="rebookLastService()" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                                </svg>
+                                <span>Repeat Last Service</span>
+                            </button>
+                            <button onclick="contactSupport()" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                                <span>Contact Support</span>
+                            </button>
+                            <button onclick="generateReferralLink()" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                                </svg>
+                                <span>Refer Friends</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Saved Payment Methods</h3>
+                            <a href="payment_center.html" class="text-primary hover:text-primary-700 text-sm font-medium">Manage</a>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                                <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10z"/>
+                                </svg>
+                                <div class="flex-1">
+                                    <p class="font-medium text-gray-900">•••• 4532</p>
+                                    <p class="text-sm text-gray-500">Expires 12/27</p>
+                                </div>
+                                <span class="badge-success">Default</span>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                                <img src="https://img.rocket.new/generatedImages/rocket_gen_img_18d907bde-1762188899457.png" alt="Pi cryptocurrency payment method icon" class="w-8 h-8 rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                                <div class="flex-1">
+                                    <p class="font-medium text-gray-900">Pi Wallet</p>
+                                    <p class="text-sm text-gray-500">Connected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Reviews -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Your Reviews</h3>
+                            <button onclick="writeReview()" class="text-primary hover:text-primary-700 text-sm font-medium">Write Review</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-secondary pl-4">
+                                <div class="flex text-yellow-400 mb-2">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                </div>
+                                <p class="text-sm text-gray-600">"Excellent office cleaning service. Very thorough and professional team."</p>
+                                <p class="text-xs text-gray-500 mt-1">Office Cleaning • Oct 28, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account Settings Modal -->
+    <div id="account-settings-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-elevated max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900">Account Settings</h2>
+                        <button onclick="toggleAccountSettings()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6 space-y-6">
+                    <!-- Personal Information -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input type="text" value="Adebayo Ogundimu" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" value="adebayo.ogundimu@email.com" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" value="+234 801 234 5678" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                                <input type="text" value="Victoria Island, Lagos" class="input-field">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Preferences -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Notification Preferences</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">Service reminders</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-primary">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">Promotional offers</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-primary">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-700">WhatsApp notifications</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-primary">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Preferences -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Service Preferences</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Service Time</label>
+                                <select class="input-field">
+                                    <option>Morning (8AM - 12PM)</option>
+                                    <option selected>Afternoon (12PM - 5PM)</option>
+                                    <option>Evening (5PM - 8PM)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Technician</label>
+                                <select class="input-field">
+                                    <option>No preference</option>
+                                    <option selected>Michael A.</option>
+                                    <option>Sarah O.</option>
+                                    <option>David K.</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-gray-200 flex justify-end space-x-4">
+                    <button onclick="toggleAccountSettings()" class="btn-outline">Cancel</button>
+                    <button onclick="saveAccountSettings()" class="btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-3">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <circle cx="20" cy="20" r="18" fill="currentColor" opacity="0.1"/>
+                            <path d="M12 16h16v2H12v-2zm0 4h16v2H12v-2zm0 4h12v2H12v-2z" fill="currentColor"/>
+                            <circle cx="20" cy="12" r="3" fill="currentColor"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-bold">ROA Investment Limited</h3>
+                            <p class="text-sm text-gray-400">Professional Cleaning Services</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">
+                        Your trusted cleaning partner with certified excellence. Pioneering the future of cleaning services through technology.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1597724982201-ac9939c5fcb2" alt="WRKMAN Elite certification" class="w-12 h-8 object-contain bg-white rounded px-1" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <img src="https://images.unsplash.com/photo-1683730595533-edd1fa61ab44" alt="LCDA certification" class="w-12 h-8 object-contain bg-white rounded px-1" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Our Services</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="services.html" class="hover:text-white transition-colors">Residential Cleaning</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Commercial Cleaning</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Fumigation Services</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Laundry Services</a></li>
+                        <li><a href="services.html" class="hover:text-white transition-colors">Deep Cleaning</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="booking_system.html" class="hover:text-white transition-colors">Book Service</a></li>
+                        <li><a href="customer_dashboard.html" class="hover:text-white transition-colors">Customer Portal</a></li>
+                        <li><a href="payment_center.html" class="hover:text-white transition-colors">Payment Options</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-semibold">Contact Us</h4>
+                    <div class="space-y-3 text-gray-400">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            <span>+234 812 345 6789</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <span>info@roaeliteclean.com</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <span>Lagos, Nigeria</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/2348022906307" class="text-gray-400 hover:text-white transition-colors">
+                            <img src="https://images.unsplash.com/photo-1690883793939-f8cca2f28ee0" alt="WhatsApp social media icon" class="w-6 h-6" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ROA Investment Limited. All Rights Reserved. | WRKMAN Elite & LCDA Certified</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function toggleAccountSettings() {
+            const modal = document.getElementById('account-settings-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function modifyService(serviceId) {
+            alert(`Modify service ${serviceId} - Redirecting to booking system...`);
+            window.location.href = 'booking_system.html';
+        }
+
+        function rebookService(serviceId) {
+            alert(`Rebooking service ${serviceId} - Redirecting to booking system...`);
+            window.location.href = 'booking_system.html';
+        }
+
+        function rebookLastService() {
+            alert('Rebooking your last service - Redirecting to booking system...');
+            window.location.href = 'booking_system.html';
+        }
+
+        function viewInvoice(serviceId) {
+            alert(`Viewing invoice for service ${serviceId}`);
+        }
+
+        function viewPhotos(serviceId) {
+            alert(`Viewing before/after photos for service ${serviceId}`);
+        }
+
+        function downloadDocument(docId) {
+            alert(`Downloading document ${docId}`);
+        }
+
+        function viewRewards() {
+            alert('Viewing loyalty rewards and available benefits');
+        }
+
+        function contactSupport() {
+            window.open('https://wa.me/2348022906307', '_blank');
+        }
+
+        function generateReferralLink() {
+            alert('Generating your referral link...');
+        }
+
+        function writeReview() {
+            alert('Opening review form...');
+        }
+
+        function saveAccountSettings() {
+            alert('Account settings saved successfully!');
+            toggleAccountSettings();
+        }
+
+        function toggleHistoryFilter() {
+            alert('Opening service history filter options...');
+        }
+
+        function toggleDocumentFilter() {
+            alert('Opening document filter options...');
+        }
+
+        function loadMoreHistory() {
+            alert('Loading more service history...');
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card, .card-elevated').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
