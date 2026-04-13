@@ -14,8 +14,6 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-
-
 class LoginViewSet(viewsets.ViewSet):
     """API endpoint for user login."""
     permission_classes = [AllowAny]
