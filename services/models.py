@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from decimal import Decimal
+from django.conf import settings
 
 # Create your models here.
 class ServiceChoices(models.TextChoices):
@@ -72,7 +73,7 @@ class Booking(models.Model):
     recurring_interval = models.CharField(max_length=20, blank=True, null=True)
 
     # user details
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='bookings')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='bookings')
     first_name = models.CharField(blank=True,max_length=100)
     last_name = models.CharField(blank=True,max_length=100)
     phone = models.CharField(blank=True,max_length=20)

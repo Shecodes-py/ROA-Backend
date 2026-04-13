@@ -87,6 +87,6 @@ python manage.py runserver
 
 **Auth:** `email` (username), `password`  
 **Profile:** `first_name`, `last_name`, `avatar`, `bio`, `date_of_birth`  
-**Contact:** `phone_number`, `phone_verified`  
+**Contact:** `phone_number`  
 **Address:** `address_line1`, `address_line2`, `city`, `state`, `postal_code`, `country`  
 **Dashboard:** `notification_preference`, `is_email_verified`, `profile_completion`, `last_activity`

@@ -167,7 +167,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "authentication.User"
  
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),

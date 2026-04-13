@@ -73,7 +73,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             "id", "email", "first_name", "last_name", "full_name",
             "avatar", "bio", "date_of_birth",
-            "phone_number", "phone_verified",
+            "phone_number",
             "address_line1", "address_line2", "city", "state",
             "postal_code", "country", "full_address",
             "notification_preference",
@@ -81,7 +81,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "profile_completion", "date_joined",
         ]
         read_only_fields = [
-            "id", "email", "phone_verified", "is_email_verified",
+            "id", "email", "is_email_verified",
             "last_activity", "date_joined",
         ]
 
