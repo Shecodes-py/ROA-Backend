@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'corsheaders',
+    'drf_yasg',
     "rest_framework",
 
     'authentication',
