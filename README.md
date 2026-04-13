@@ -12,39 +12,6 @@ ROA is the backend service for the ROA application. This repository contains the
 - Docker support
 - Tests and linting
 
-## Requirements
-- Git
-- Node >= 16 / Python >= 3.9 / .NET SDK 6 (choose the runtime used in this repo)
-- Docker (optional)
-- Database server (Postgres / MySQL / MongoDB — configured via ENV)
-
-Note: Replace the runtime above with the actual stack used in this repository.
-
-## Quick start (example for Node.js)
-1. Clone
-    ```
-    git clone <repo-url>
-    cd ROA
-    cd backend/ROA
-    ```
-2. Install
-    ```
-    npm ci
-    ```
-3. Create environment file
-    ```
-    cp .env.example .env
-    # edit .env to match your local config
-    ```
-4. Run
-    ```
-    npm run dev
-    ```
-
-If the project uses a different stack, adapt these steps:
-- Python: `python -m venv .venv && .venv/bin/activate && pip install -r requirements.txt`
-- .NET: `dotnet restore && dotnet run`
-
 ## Environment variables
 Create a `.env` in the backend folder. Example variables:
 ```
@@ -56,67 +23,70 @@ LOG_LEVEL=info
 ```
 Adjust names/types to match this project's config.
 
-## Database
-- Run migrations:
-  - Node (example): `npm run migrate`
-  - Python (example): `alembic upgrade head`
-- Seed data (if provided): `npm run seed` or `python manage.py loaddata seed.json`
 
-## API
-Document main endpoints here. Example:
-loading.........
 
-Include request/response examples in this file or a separate OpenAPI spec when available.
+## Stack
+- Django 4.2
+- Django REST Framework
+- SimpleJWT (access + refresh tokens, blacklisting)
+- drf-yasg (Swagger UI + ReDoc)
+- Custom User model (email auth, phone, address, dashboard)
 
-## Testing
-- Run tests:
-  ```
-  npm test
-  ```
-- Coverage:
-  ```
-  npm run coverage
-  ```
+## Quickstart
 
-Adjust commands per project tooling.
+```bash
+# 1. Create and activate virtualenv
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
 
-## Linting & formatting
-- Lint:
-  ```
-  npm run lint
-  ```
-- Format:
-  ```
-  npm run format
-  ```
+# 2. Install dependencies
+pip install -r requirements.txt
 
-## Docker
-Build and run with Docker (example):
+# 3. Copy and fill in env vars
+cp .env.example .env
+
+# 4. Run migrations
+python manage.py makemigrations accounts
+python manage.py migrate
+
+# 5. Create superuser
+python manage.py createsuperuser
+
+# 6. Run dev server
+python manage.py runserver
 ```
-docker build -t roa-backend .
-docker run --env-file .env -p 4000:4000 roa-backend
-```
-Add a docker-compose.yml to orchestrate app + DB if needed.
 
-## CI / CD
-Describe CI and CD guidelines here:
-- run tests and linters on PR
-- build Docker image on main
-- deploy from main branch to staging/production
+## API endpoints
 
-## Contributing
-- Fork -> branch -> PR
-- Write tests for new features and bug fixes
-- Keep commits small and atomic
-- Follow the repository's coding style and commit message conventions
+| Method | URL | Auth | Description |
+|--------|-----|------|-------------|
+| POST | `/api/auth/register/` | Public | Register new user |
+| POST | `/api/auth/login/` | Public | Login, get tokens |
+| POST | `/api/auth/token/refresh/` | Public | Refresh access token |
+| POST | `/api/auth/logout/` | Bearer | Blacklist refresh token |
+| POST | `/api/auth/change-password/` | Bearer | Change password |
+| GET/PATCH | `/api/auth/profile/` | Bearer | View / update profile |
+| GET | `/api/auth/dashboard/` | Bearer | Dashboard summary |
 
-## Troubleshooting
-- Check logs: `tail -f logs/app.log` or container logs `docker logs -f <container>`
-- Verify DB connectivity with `DATABASE_URL`
-- Ensure required ENV variables are set
+## Docs
 
-## License
-Specify the project license (e.g., MIT). Add LICENSE file in repo root.
+| URL | Description |
+|-----|-------------|
+| `/swagger/` | Swagger UI |
+| `/redoc/` | ReDoc UI |
+| `/swagger.json` | OpenAPI JSON schema |
 
-## Contact
-For questions open an issue or contact the maintainer listed in the repository metadata.
+## JWT usage
+
+1. Login via `POST /api/auth/login/`
+2. Use the returned `access` token in headers: `Authorization: Bearer <token>`
+3. Access tokens expire in **60 minutes**; refresh tokens in **7 days**
+4. Refresh tokens rotate on each use and are blacklisted on logout
+
+## User model fields
+
+**Auth:** `email` (username), `password`  
+**Profile:** `first_name`, `last_name`, `avatar`, `bio`, `date_of_birth`  
+**Contact:** `phone_number`, `phone_verified`  
+**Address:** `address_line1`, `address_line2`, `city`, `state`, `postal_code`, `country`  
+**Dashboard:** `notification_preference`, `is_email_verified`, `profile_completion`, `last_activity`
