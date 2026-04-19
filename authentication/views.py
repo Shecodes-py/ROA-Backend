@@ -47,8 +47,22 @@ class RegisterView(generics.CreateAPIView):
         },
         tags=["Authentication"],
     )
+
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+ 
+        refresh = RefreshToken.for_user(user)
+ 
+        refresh["email"] = user.email
+        refresh["full_name"] = user.full_name
+ 
+        return Response({
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "user": UserDashboardSerializer(user).data,
+        }, status=status.HTTP_201_CREATED)
 
 
 class LoginView(TokenObtainPairView):
