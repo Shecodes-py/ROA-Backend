@@ -13,21 +13,21 @@ class UserAdmin(BaseUserAdmin):
         "is_email_verified", "profile_completion",
         "is_active", "is_staff", "date_joined",
     ]
-    list_filter = ["is_staff", "is_active", "is_email_verified", "country"]
+    list_filter = ["is_staff", "is_active", "is_email_verified"]
     search_fields = ["email", "first_name", "last_name", "phone_number"]
     readonly_fields = ["date_joined", "last_activity", "profile_completion", "last_login"]
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (_("Personal info"), {
-            "fields": ("first_name", "last_name", "avatar", "bio", "date_of_birth")
+            "fields": ("first_name", "last_name", "avatar", )
         }),
         # contact
         
         (_("Address"), {
             "fields": (
                 "address_line1", "address_line2",
-                "city", "state", "postal_code", "country",
+                "city", "state", 
             )
         }),
         (_("Dashboard & Preferences"), {

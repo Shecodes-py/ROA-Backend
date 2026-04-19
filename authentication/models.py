@@ -19,18 +19,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
     avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)
-    bio = models.TextField(_("bio"), max_length=500, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    
     phone_number = models.CharField(_("phone number"), max_length=20, blank=True)
 
     address_line1 = models.CharField(_("address line 1"), max_length=255, blank=True)
     address_line2 = models.CharField(_("address line 2"), max_length=255, blank=True)
+    notes = models.CharField(max_length=255, blank=True)
     city = models.CharField(_("city"), max_length=100, blank=True)
     state = models.CharField(_("state / province"), max_length=100, blank=True)
     postal_code = models.CharField(_("postal code"), max_length=20, blank=True)
-    country = models.CharField(_("country"), max_length=100, blank=True)
-
+    
     # ── Dashboard / preferences ────────────────────────────────────────────────
     class NotificationPreference(models.TextChoices):
         ALL = "all", _("All notifications")
@@ -70,8 +67,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.address_line2,
             self.city,
             self.state,
-            self.postal_code,
-            self.country,
         ])
         return ", ".join(parts)
 
@@ -79,8 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Return percentage of optional profile fields filled in."""
         fields = [
             self.first_name, self.last_name, self.phone_number,
-            self.avatar, self.bio, self.date_of_birth,
-            self.address_line1, self.city, self.country,
+            self.avatar, self.address_line1, self.city, 
         ]
         filled = sum(1 for f in fields if f)
         self.profile_completion = int((filled / len(fields)) * 100)

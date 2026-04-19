@@ -22,11 +22,13 @@ class Payment(models.Model):
         NGN = 'NGN', 'Nigerian Naira'
         USD = 'USD', 'US Dollar'
 
-    # booking = models.ForeignKey(
-    #     'bookings.Booking',
-    #     on_delete=models.PROTECT,
-    #     related_name='payments',
-    # )
+    booking = models.ForeignKey(
+        'services.Booking',
+        on_delete=models.PROTECT,
+        related_name='payments',
+        null=True, blank=True)
+
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

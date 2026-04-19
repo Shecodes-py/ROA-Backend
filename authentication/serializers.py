@@ -59,7 +59,7 @@ class AddressSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "address_line1", "address_line2",
-            "city", "state", "postal_code", "country",
+            "city", "state",
         ]
 
 
@@ -72,10 +72,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id", "email", "first_name", "last_name", "full_name",
-            "avatar", "bio", "date_of_birth",
-            "phone_number",
+            "avatar", "phone_number",
             "address_line1", "address_line2", "city", "state",
-            "postal_code", "country", "full_address",
+             "full_address",
             "notification_preference",
             "is_email_verified", "last_activity",
             "profile_completion", "date_joined",

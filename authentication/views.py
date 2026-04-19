@@ -38,30 +38,32 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
-    @swagger_auto_schema(
-        operation_summary="Register new user",
-        operation_description="Create a new user account with email and password.",
-        responses={
-            201: openapi.Response("User created", RegisterSerializer),
-            400: "Validation error",
-        },
-        tags=["Authentication"],
-    )
+    # @swagger_auto_schema(
+    #     operation_summary="Register new user",
+    #     operation_description="Create a new user account with email and password.",
+    #     responses={
+    #         201: openapi.Response("User created", RegisterSerializer),
+    #         400: "Validation error",
+    #     },
+    #     tags=["Authentication"],
+    # )
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
  
         refresh = RefreshToken.for_user(user)
- 
         refresh["email"] = user.email
         refresh["full_name"] = user.full_name
  
         return Response({
             "access": str(refresh.access_token),
             "refresh": str(refresh),
-            "user": UserDashboardSerializer(user).data,
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+
         }, status=status.HTTP_201_CREATED)
 
 
