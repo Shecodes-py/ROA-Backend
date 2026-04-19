@@ -43,13 +43,16 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
+    path('api-auth/', include('rest_framework.urls')),  # For browsable API login/logout
+
     path('', include('authentication.urls')),
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
     path('services/', include('services.urls')),
-
-   path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('payments/', include('payments.urls')),
+    
+    path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
    
 ]

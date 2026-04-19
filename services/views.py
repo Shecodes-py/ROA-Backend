@@ -8,11 +8,15 @@ from django.http import JsonResponse
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from .models import Booking, AdditionalService
-from .serializers import BookingSerializer, AdditionalServiceSerializer
+from .models import Booking, AdditionalService, AreaChoice, ServiceChoices, PropertySizeChoice
+from .serializers import BookingSerializer, BookingListSerializer, AdditionalServiceSerializer
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 
 # Create your views here.
 def home(request):
@@ -23,140 +27,110 @@ def home(request):
     }
     return render(request, 'services.html', context)
 
+
 class AdditionalServiceViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Endpoint to let the front-end fetch available add-ons and their prices.
+    List all active add-on services with their prices.
+    Used by the frontend booking form.
     """
     queryset = AdditionalService.objects.filter(is_active=True)
     serializer_class = AdditionalServiceSerializer
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(operation_summary="List available add-ons", tags=["Bookings"])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary="Get add-on detail", tags=["Bookings"])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
 
 class BookingViewSet(viewsets.ModelViewSet):
     """
-    Endpoint for creating and managing bookings.
+    Full CRUD for bookings.
+    - Guests/unauthenticated users: create only.
+    - Authenticated users: see and manage their own bookings.
+    - Admins: see all bookings.
     """
-    queryset = Booking.objects.all()
     serializer_class = BookingSerializer
 
+    def get_permissions(self):
+        if self.action == 'create':
+            return [AllowAny()]
+        if self.action in ['list', 'retrieve', 'update', 'partial_update']:
+            return [IsAuthenticated()]
+        if self.action == 'destroy':
+            return [IsAdminUser()]
+        return [IsAuthenticated()]
+
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return Booking.objects.none()
+        if user.is_staff:
+            return Booking.objects.all().prefetch_related('additional_services', 'payments')
+        return Booking.objects.filter(user=user).prefetch_related('additional_services', 'payments')
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BookingListSerializer
+        return BookingSerializer
+
+    @swagger_auto_schema(
+        operation_summary="Create a booking",
+        operation_description=(
+            "Create a booking. Works for guests and authenticated users. "
+            "Price is always calculated server-side — do not send `total_price`."
+        ),
+        tags=["Bookings"],
+    )
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            # Logic for custom price validation could go here
-            booking = serializer.save()
-            
-            # If the user is logged in, associate the booking automatically
-            if request.user.is_authenticated:
-                booking.user = request.user
-                booking.save()
+        return super().create(request, *args, **kwargs)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    @swagger_auto_schema(operation_summary="List my bookings", tags=["Bookings"])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
-def get_booking_data(request):
+    @swagger_auto_schema(operation_summary="Get booking detail", tags=["Bookings"])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary="Update booking", tags=["Bookings"])
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary="Cancel booking",
+        tags=["Bookings"],
+        responses={200: "Booking cancelled"},
+    )
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def cancel(self, request, pk=None):
+        booking = self.get_object()
+        if booking.status in ['completed', 'cancelled']:
+            return Response(
+                {"detail": f"Cannot cancel a booking with status '{booking.status}'."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        booking.status = 'cancelled'
+        booking.save(update_fields=['status'])
+        return Response({"detail": "Booking cancelled successfully."})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def booking_options(request):
     """
-    Get all available booking options for the frontend
-    
+    Return all dropdown options for the booking form.
+
     GET /api/bookings/options/
-    
-    Response:
-    {
-        "success": true,
-        "services": [...],
-        "property_sizes": [...],
-        "add_ons": [...],
-        "time_slots": [...],
-        "areas": [...]
-    }
     """
-    services = Booking.SERVICE_TYPE_CHOICES
-    property_sizes = Booking.PROPERTY_SIZE_CHOICES
     add_ons = AdditionalService.objects.filter(is_active=True)
-                   
     return JsonResponse({
         'success': True,
-        'services': '',
-        'property_sizes': '',
+        'services': [{'value': v, 'label': l} for v, l in ServiceChoices.choices],
+        'property_sizes': [{'value': v, 'label': l} for v, l in PropertySizeChoice.choices],
         'add_ons': AdditionalServiceSerializer(add_ons, many=True).data,
-        'time_slots': '',
-        'areas': [
-            {'value': 'victoria-island', 'label': 'Victoria Island'},
-            {'value': 'lekki-phase1', 'label': 'Lekki Phase 1'},
-            {'value': 'lekki-phase2', 'label': 'Lekki Phase 2'},
-            {'value': 'ikeja-gra', 'label': 'Ikeja GRA'},
-            {'value': 'ikoyi', 'label': 'Ikoyi'},
-            {'value': 'surulere', 'label': 'Surulere'},
-            {'value': 'yaba', 'label': 'Yaba'},
-            {'value': 'other', 'label': 'Other'}
-        ]
+        'areas': [{'value': v, 'label': l} for v, l in AreaChoice.choices],
     })
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def create_booking(request):
-    """
-    Create a new booking from the frontend form
-    
-    POST /api/bookings/create/
-    
-    Request Body:
-    {
-        "service_type": "cleaning",
-        "cleaning_type": "residential",
-        "property_size": "medium",
-        "add_ons": ["deep_cleaning", "window_cleaning"],
-        "is_emergency": false,
-        "date": "2025-12-25",
-        "time": "10:00",
-        "first_name": "John",
-        "last_name": "Doe",
-        "phone": "+234 123 456 7890",
-        "email": "john@example.com",
-        "address": "123 Main St",
-        "area": "victoria-island",
-        "special_instructions": "Call before arriving",
-        "is_recurring": false,
-        "frequency": "weekly",
-        "payment_method": "card"
-    }
-    
-    Response:
-    {
-        "success": true,
-        "booking_id": 1,
-        "message": "Booking confirmed! Your booking ID is #1",
-        "data": {
-            "booking_id": 1,
-            "customer_name": "John Doe",
-            "service": "Residential Cleaning",
-            "date": "2025-12-25",
-            "time": "8:00 AM - 10:00 AM",
-            "total_amount": 22500.0,
-            "status": "pending"
-        }
-    }
-    """
-    serializer = BookingSerializer(data=request.data, context={'request': request})
-    
-    if serializer.is_valid():
-        try:
-            booking = serializer.save()
-            response_data = {
-                "success": True,
-                "booking_id": booking.id,
-                "message": f"Booking confirmed! Your booking ID is #{booking.id}",
-                "data": {
-                    "booking_id": booking.id,
-                    "customer_name": f"{booking.first_name} {booking.last_name}",
-                    "service": booking.get_service_display(),
-                    "date": booking.date,
-                    "time": booking.time,
-                    "total_amount": booking.total_price,
-                    "status": booking.status,
-                }
-            }
-            return Response(response_data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response({"success": False, "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
