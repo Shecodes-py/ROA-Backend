@@ -1,16 +1,24 @@
 from django.urls import path
 from .views import BookingViewSet, AdditionalServiceViewSet, home, booking_options
 
-
 app_name = 'bookings'
 
+booking_list   = BookingViewSet.as_view({'get': 'list',   'post': 'create'})
+booking_detail = BookingViewSet.as_view({'get': 'retrieve', 'patch': 'partial_update', 'delete': 'destroy'})
+
+addon_list   = AdditionalServiceViewSet.as_view({'get': 'list'})
+addon_detail = AdditionalServiceViewSet.as_view({'get': 'retrieve'})
+
 urlpatterns = [
-   path("health_check/", home, name="health_check"),
+    path('health/', home, name='health_check'),
     
     # Main booking page
-    path('booking', BookingViewSet.as_view({'get': 'list'}), name='booking_page'),
-    path('Addon', AdditionalServiceViewSet.as_view({'get': 'list'}), name='additional_services_list'),
-    path('Addon/<int:pk>/', AdditionalServiceViewSet.as_view({'get': 'retrieve'}), name='additional_service_detail'),
-    path('booking-options', booking_options, name='booking_options'),
-   
+    path('bookings/',          booking_list,   name='booking-list'),
+    path('bookings/<int:pk>/', booking_detail, name='booking-detail'),
+    path('bookings/<int:pk>/cancel/', BookingViewSet.as_view({'post': 'cancel'}), name='booking-cancel'),
+
+    path('Addons/',          addon_list,   name='addon-list'),
+    path('Addons/<int:pk>/', addon_detail, name='addon-detail'),
+
+    path('booking-options/', booking_options, name='booking-options'),
 ]
