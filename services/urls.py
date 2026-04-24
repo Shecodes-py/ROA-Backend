@@ -17,8 +17,9 @@ urlpatterns = [
     path('bookings/<int:pk>/', booking_detail, name='booking-detail'),
     path('bookings/<int:pk>/cancel/', BookingViewSet.as_view({'post': 'cancel'}), name='booking-cancel'),
 
-    path('Addons/',          addon_list,   name='addon-list'),
-    path('Addons/<int:pk>/', addon_detail, name='addon-detail'),
+    path('Addon/',          addon_list,   name='addon-list'),
+    path('Addon/<int:pk>/', addon_detail, name='addon-detail'),
 
     path('booking-options/', booking_options, name='booking-options'),
 ]
+
