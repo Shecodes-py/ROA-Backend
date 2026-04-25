@@ -31,8 +31,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ["localhost:3000", "https://roacleaning.com", "www.roacleaning.com", "https://roa-cleaning-services.vercel.app", "https://roa-backend.up.railway.app", "http://localhost:8000", "127.0.0.1"]
-
+# ALLOWED_HOSTS = ["localhost:3000", "https://roacleaning.com", "www.roacleaning.com", "https://roa-cleaning-services.vercel.app", "https://roa-backend.up.railway.app", "http://localhost:8000", "127.0.0.1"]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",")
 
 # Application definition
 
