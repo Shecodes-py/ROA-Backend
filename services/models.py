@@ -22,6 +22,8 @@ class PropertySizeChoice(models.TextChoices):
     SMALL = 'small', 'Small'
     MEDIUM = 'medium', 'Medium'
     LARGE = 'large', 'Large'
+    FLAT = 'flat', 'Flat'
+    LARGE_AREA = 'large_area', 'Large Area'
     
 class CleaningTypeChoice(models.TextChoices):
     RESIDENTIAL = 'residential', 'Residential Cleaning'
