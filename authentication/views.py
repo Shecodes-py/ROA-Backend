@@ -19,7 +19,6 @@ from .serializers import (
     CustomTokenObtainPairSerializer,
     RegisterSerializer,
     UserProfileSerializer,
-    UserDashboardSerializer,
     ChangePasswordSerializer,
 )
 
@@ -27,7 +26,7 @@ User = get_user_model()
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Welcome to the Authentication System")
+    return render(request, "index.html")
 
 class RegisterView(generics.CreateAPIView):
     """
@@ -128,18 +127,22 @@ class LogoutView(APIView):
         except Exception:
             return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
 
-
+# I want to merge profile and dashboard into a single endpoint that returns all user info in one response.
 class ProfileView(generics.RetrieveUpdateAPIView):
     """
     Retrieve or update the authenticated user's full profile,
     including address and contact information.
+    Contains profile completion, contact summary, and notification settings.
     """
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
     http_method_names = ["get", "patch"]
-
+    
     def get_object(self):
-        return self.request.user
+        user = self.request.user
+        user.last_activity = timezone.now()
+        user.save(update_fields=["last_activity"])
+        return user
 
     @swagger_auto_schema(
         operation_summary="Get my profile",
@@ -155,28 +158,6 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     )
     def patch(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-
-
-class DashboardView(generics.RetrieveAPIView):
-    """
-    Lightweight dashboard summary for the authenticated user.
-    Contains profile completion, contact summary, and notification settings.
-    """
-    serializer_class = UserDashboardSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        user = self.request.user
-        user.last_activity = timezone.now()
-        user.save(update_fields=["last_activity"])
-        return user
-
-    @swagger_auto_schema(
-        operation_summary="My dashboard",
-        tags=["Dashboard"],
-    )
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
 
 
 class ChangePasswordView(APIView):

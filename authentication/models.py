@@ -1,5 +1,7 @@
+from decimal import Decimal
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.db.models import Sum, Avg
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -43,6 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_activity = models.DateTimeField(null=True, blank=True)
     profile_completion = models.PositiveSmallIntegerField(default=0)  # 0-100 %
 
+    loyalty_points = models.PositiveIntegerField(default=0)  # Loyalty points earned
+    
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
@@ -80,3 +84,28 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.profile_completion = int((filled / len(fields)) * 100)
         self.save(update_fields=["profile_completion"])
         return self.profile_completion
+    
+    def calculate_loyalty_points(self, amount_spent):
+        """Earn 1 point for every 100 spent."""
+        points_earned = int(amount_spent // 100)
+        if points_earned > 0:
+            
+            self.loyalty_points += points_earned
+            self.save(update_fields=["loyalty_points"])
+        return points_earned
+    
+    @property
+    def total_bookings_count(self):
+        """Return total number of bookings made by the user."""
+        return self.booking_set.count()
+    
+    @property
+    def total_spent_amount(self):
+        """Return total amount spent by the user across all bookings."""
+        return self.booking_set.aggregate(total=Sum('total_price'))['total'] or Decimal('0.00')
+    
+    @property
+    def average_rating(self):
+        """Return average rating given by the user across all bookings."""
+        avg = self.booking_set.aggregate(avg_res=Avg('rating'))['avg_res']
+        return round(avg, 2) if avg else Decimal('0.00')

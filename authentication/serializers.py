@@ -20,7 +20,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         # Attach user info to the login response
-        data["user"] = UserDashboardSerializer(self.user).data
+        data["user"] = UserProfileSerializer(self.user).data
         return data
 
 
@@ -68,6 +68,20 @@ class UserProfileSerializer(serializers.ModelSerializer):
     full_address = serializers.CharField(read_only=True)
     profile_completion = serializers.IntegerField(read_only=True)
 
+    full_name = serializers.CharField(read_only=True)
+    full_address = serializers.CharField(read_only=True)
+
+    # Add your model properties here
+    total_bookings_count = serializers.IntegerField(read_only=True)
+    total_spent_amount = serializers.DecimalField(
+        max_digits=15, decimal_places=2, read_only=True
+    )
+    average_rating = serializers.DecimalField(
+        max_digits=3, decimal_places=2, read_only=True
+    )
+    loyalty_points = serializers.IntegerField(read_only=True)
+
+
     class Meta:
         model = User
         fields = [
@@ -78,7 +92,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "notification_preference",
             "is_email_verified", "last_activity",
             "profile_completion", "date_joined",
+            "last_activity", "date_joined",
+            "total_bookings_count", 
+            "total_spent_amount", 
+            "average_rating", 
+            "loyalty_points"
         ]
+        
         read_only_fields = [
             "id", "email", "is_email_verified",
             "last_activity", "date_joined",
@@ -87,23 +107,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance = super().update(instance, validated_data)
         instance.calculate_profile_completion()
-        return instance
-
-
-class UserDashboardSerializer(serializers.ModelSerializer):
-    full_name = serializers.CharField(read_only=True)
-    full_address = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = [
-            "id", "email", "full_name", "avatar",
-            "phone_number", "full_address",
-            "notification_preference",
-            "is_email_verified", "profile_completion",
-            "last_activity", "date_joined",
-        ]
-
+        return instance   
+   
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True, style={"input_type": "password"})

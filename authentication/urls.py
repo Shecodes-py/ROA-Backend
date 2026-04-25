@@ -12,7 +12,6 @@ urlpatterns = [
 
     # User
     path("profile/", ProfileView.as_view(), name="profile"),
-    path("dashboard/", DashboardView.as_view(), name="dashboard"),
 
     # blank
     path("", index, name="home"),
