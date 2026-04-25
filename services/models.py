@@ -34,7 +34,7 @@ class AddOnType(models.TextChoices):
     # EMERGENCY = 'emergency', 'Emergency Service (24/7) (+₦10,000)'
 
 class AreaChoice(models.TextChoices):
-    VICTORIA_ISLAND = "victoria-island", "Victoria Island"
+    VICTORIA_ISLAND = "victoria_island", "Victoria Island"
     LEKKI_PHASE1 = "lekki-phase1", "Lekki Phase 1"
     LEKKI_PHASE2 = "lekki-phase2", "Lekki Phase 2"
     IKEJA_GRA = "ikeja-gra", "Ikeja GRA"
@@ -109,7 +109,7 @@ class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='bookings')
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=20) 
+    phone = models.CharField(max_length=20) 
     email = models.EmailField(null=True)
     description = models.TextField(max_length=255, null=True, blank=True)
 
