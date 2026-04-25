@@ -95,7 +95,7 @@ class Booking(models.Model):
     
     #  Service Selection 
     cleaning_type = models.CharField(max_length=20, choices=CleaningTypeChoice.choices, null=True, blank=True)
-    property_size = models.CharField(default='', max_length=50, choices=PropertySizeChoice.choices)
+    property_size = models.CharField(max_length=50, choices=PropertySizeChoice.choices,blank=True, null=True, default=None)
     
     additional_services = models.ManyToManyField(AdditionalService, blank=True)
     
