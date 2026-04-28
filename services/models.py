@@ -120,7 +120,7 @@ class Booking(models.Model):
     
     # location
     address = models.TextField(default='', blank=True)
-    location = models.CharField(default='', max_length=30)
+    location = models.CharField(default='', max_length=255)
     special_instructions = models.TextField(blank=True)
     
     # pricing
