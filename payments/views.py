@@ -151,6 +151,7 @@ class VerifyPaymentView(APIView):
         },
         tags=["Payments"],
     )
+    
     def post(self, request):
         serializer = VerifyPaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -326,7 +327,7 @@ def _create_receipt(payment: Payment, booking) -> PaymentReceipt:
             "service_description": (
                 f"{booking.get_main_service_display()} — "
                 f"{booking.get_property_size_display()} property at "
-                f"{booking.get_location_display()}"
+                f"{booking.get_address_display()}"
             ),
             "amount_paid": payment.amount,
         }
