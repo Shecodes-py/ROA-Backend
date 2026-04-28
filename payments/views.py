@@ -327,7 +327,10 @@ def _create_receipt(payment: Payment, booking) -> PaymentReceipt:
             "service_description": (
                 f"{booking.get_main_service_display()} — "
                 f"{booking.get_property_size_display()} property at "
-                f"{booking.get_address_display()}"
+                f"{booking.location}"
+                # f"{booking.special_instructions and f' ({booking.special_instructions})' or ''}"
+                # f"{booking.time_slot and f' during {booking.time_slot}' or ''}"
+                # f"{booking.is_emergency and ' [EMERGENCY]' or ''}"
             ),
             "amount_paid": payment.amount,
         }
