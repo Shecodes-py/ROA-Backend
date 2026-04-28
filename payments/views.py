@@ -1,6 +1,6 @@
-from django.shortcuts import render
 import json
 import logging
+
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -25,7 +25,6 @@ from .serializers import (
 
 logger = logging.getLogger(__name__)
 paystack = PaystackService()
-
 
 # Create your views here.
 class InitiatePaymentView(APIView):
@@ -62,9 +61,11 @@ class InitiatePaymentView(APIView):
         },
         tags=["Payments"],
     )
+    
     def post(self, request):
         serializer = InitiatePaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        
         booking_id = serializer.validated_data['booking_id']
 
         # Fetch booking — users can only pay for their own bookings
@@ -79,7 +80,7 @@ class InitiatePaymentView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        # Guard: don't allow double payment
+        # don't allow double payment
         if booking.payments.filter(status=Payment.Status.SUCCESS).exists():
             return Response(
                 {"detail": "This booking has already been paid for."},
@@ -349,7 +350,6 @@ class PaymentHistoryView(generics.ListAPIView):
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
-
 
 
 class PaymentReceiptView(generics.RetrieveAPIView):

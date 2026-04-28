@@ -20,7 +20,6 @@ class Payment(models.Model):
 
     class Currency(models.TextChoices):
         NGN = 'NGN', 'Nigerian Naira'
-        USD = 'USD', 'US Dollar'
 
     booking = models.ForeignKey(
         'services.Booking',

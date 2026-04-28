@@ -188,7 +188,28 @@ class Booking(models.Model):
         from django.core.exceptions import ValidationError
         if self.main_service == ServiceChoices.CLEANING and not self.cleaning_type:
             raise ValidationError("Cleaning type is required when main service is Cleaning.")
+        
+    def update_status(self, new_status):
+        """Utility method to update booking status."""
+        if new_status in StatusChoice.values:
+            self.status = new_status
+            self.save()
+        else:
+            raise ValueError(f"Invalid status: {new_status}")
+        
+    def update_payment_method(self, new_method):
+        """Utility method to update payment method."""
+        self.payment_method = new_method
+        self.save()
 
+    def emergency_surcharge(self):
+        """Calculate and apply emergency surcharge if is_emergency is True."""
+        if self.is_emergency:
+            self.emergency_charge = EMERGENCY_FEE
+        else:
+            self.emergency_charge = Decimal('0.00')
+        self.total_price = self.base_price + self.addons_total + self.emergency_charge
+        self.save()
 
 
 @receiver(m2m_changed, sender=Booking.additional_services.through)
