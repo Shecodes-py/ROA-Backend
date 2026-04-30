@@ -96,7 +96,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id", "email", "first_name", "last_name", "full_name",
-            "avatar", "phone_number", "is_superuser"
+            "avatar", "phone_number", "is_superuser",
             "address_line1", "address_line2", "city", "state",
              "full_address",
             "notification_preference",
