@@ -15,6 +15,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["email"] = user.email
         token["full_name"] = user.full_name
         token["is_staff"] = user.is_staff
+        token["is_superuser"] = user.is_superuser
         return token
 
     def validate(self, attrs):
@@ -25,6 +26,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    role = serializers.SerializerMethodField()
+
     password = serializers.CharField(
         write_only=True,
         required=True,
@@ -41,13 +44,20 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "email", "first_name", "last_name",
-            "password", "password_confirm",
+            "password", "password_confirm","role",
         ]
 
     def validate(self, attrs):
         if attrs["password"] != attrs.pop("password_confirm"):
             raise serializers.ValidationError({"password": "Passwords do not match."})
         return attrs
+    
+    def get_role(self, obj):
+        if obj.is_superuser:
+            return "admin"
+        elif obj.is_staff:
+            return "staff"
+        return "customer"
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)

@@ -109,3 +109,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Return average rating given by the user across all bookings."""
         avg = self.booking_set.aggregate(avg_res=Avg('rating'))['avg_res']
         return round(avg, 2) if avg else Decimal('0.00')
+    
+    @property
+    def role(self):
+        if self.is_superuser:
+            return "admin"
+        if self.is_staff:
+            return "staff"
+        return "customer"
