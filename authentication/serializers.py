@@ -44,7 +44,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "email", "first_name", "last_name",
-            "password", "password_confirm","role",
+            "password", "password_confirm","role","is_superuser"
         ]
 
     def validate(self, attrs):
@@ -96,7 +96,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id", "email", "first_name", "last_name", "full_name",
-            "avatar", "phone_number",
+            "avatar", "phone_number", "is_superuser"
             "address_line1", "address_line2", "city", "state",
              "full_address",
             "notification_preference",
