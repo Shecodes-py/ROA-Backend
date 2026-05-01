@@ -211,6 +211,19 @@ class Booking(models.Model):
         self.total_price = self.base_price + self.addons_total + self.emergency_charge
         self.save()
 
+    # def calculate_price(self):
+    #     # Fetch price from DB instead of BASE_PRICES dict
+    #     try:
+    #         service_config = ServicePrice.objects.get(service_name=self.main_service)
+    #         base = service_config.base_price
+    #     except ServicePrice.DoesNotExist:
+    #         base = Decimal('0.00')
+
+    #     # Apply size multiplier (You could also move SIZE_MULTIPLIERS to a model)
+    #     multiplier = SIZE_MULTIPLIERS.get(self.property_size, Decimal('1.0'))
+    #     self.base_price = base * multiplier
+    
+   
 
 @receiver(m2m_changed, sender=Booking.additional_services.through)
 def recalculate_price_on_addon_change(sender, instance, action, **kwargs):
@@ -223,3 +236,42 @@ def recalculate_price_on_addon_change(sender, instance, action, **kwargs):
             emergency_charge=instance.emergency_charge,
             total_price=instance.total_price,
         )
+
+class ContactMessage(models.Model):
+    class ServiceChoices(models.TextChoices):
+        GENERAL = 'general_cleaning', 'General Cleaning'
+        DEEP = 'deep_cleaning', 'Deep Cleaning'
+        FUMIGATION = 'fumigation', 'Fumigation Services'
+        LAUNDRY = 'laundry', 'Laundry Services'
+        OTHER = 'other', 'Other Inquiry'
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    service_of_interest = models.CharField(
+        max_length=50, 
+        choices=ServiceChoices.choices,
+        default=ServiceChoices.OTHER
+    )
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.service_of_interest}"
+    
+
+class ServicePrice(models.Model):
+    # Matches your ServiceChoices (cleaning, fumigation, laundry)
+    service_name = models.CharField(max_length=50, unique=True)
+    base_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    
+    def __str__(self):
+        return f"{self.service_name}: {self.base_price}"
+
+# If you want to manage individual Add-on prices too
+class AdditionalServicesTwo(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    def __str__(self):
+        return f"{self.name} (+{self.price})"

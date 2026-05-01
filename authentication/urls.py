@@ -15,4 +15,8 @@ urlpatterns = [
 
     # blank
     path("", index, name="home"),
+
+    path('password-reset/request/', RequestOTPView.as_view(), name='password_reset_request'),
+    path('password-reset/confirm/', ResetPasswordView.as_view(), name='password_reset_confirm'),
+
 ]

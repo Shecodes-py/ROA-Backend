@@ -27,3 +27,4 @@ staticfiles/
 *.swo
 
 peace.txt
+prices.json

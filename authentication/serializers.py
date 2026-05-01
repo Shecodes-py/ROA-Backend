@@ -139,3 +139,11 @@ class ChangePasswordSerializer(serializers.Serializer):
         if not user.check_password(value):
             raise serializers.ValidationError("Old password is incorrect.")
         return value
+    
+class RequestOTPSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+class ResetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp = serializers.CharField(max_length=6)
+    new_password = serializers.CharField(min_length=8, write_only=True)

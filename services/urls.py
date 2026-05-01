@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BookingViewSet, AdditionalServiceViewSet, home, booking_options
+from .views import BookingViewSet, AdditionalServiceViewSet, UpdatePriceView, home, booking_options, ContactCreateView, ManagePricesView
 
 app_name = 'bookings'
 
@@ -21,5 +21,9 @@ urlpatterns = [
     path('Addon/<int:pk>/', addon_detail, name='addon-detail'),
 
     path('booking-options/', booking_options, name='booking-options'),
+
+    path("contact/", ContactCreateView.as_view(), name="contact-create"),
+    path('admin/prices/', ManagePricesView.as_view(), name='manage-prices'),
+    path('admin/prices/<int:pk>/', UpdatePriceView.as_view(), name='update-price'),
 ]
 

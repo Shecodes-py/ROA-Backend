@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Sum, Avg
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from datetime import timedelta
 
 from .managers import UserManager
 
@@ -117,3 +118,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.is_staff:
             return "staff"
         return "customer"
+
+class PasswordResetOTP(models.Model):
+    email = models.EmailField()
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_valid(self):
+        # OTP valid for 10 minutes
+        return self.created_at >= timezone.now() - timedelta(minutes=10)

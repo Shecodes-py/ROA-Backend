@@ -4,12 +4,12 @@ from django.shortcuts import render, redirect #, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
 
-# from rest_framework import generics
+from rest_framework import generics
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from .models import Booking, AdditionalService, AreaChoice, ServiceChoices, PropertySizeChoice
-from .serializers import BookingSerializer, BookingListSerializer, AdditionalServiceSerializer
+from .models import Booking, AdditionalService, AreaChoice, ServiceChoices, PropertySizeChoice, ContactMessage, ServicePrice
+from .serializers import BookingSerializer, BookingListSerializer, AdditionalServiceSerializer, ContactMessageSerializer, ServicePriceSerializer
 
 from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
@@ -134,3 +134,18 @@ def booking_options(request):
         'add_ons': AdditionalServiceSerializer(add_ons, many=True).data,
         'areas': [{'value': v, 'label': l} for v, l in AreaChoice.choices],
     })
+
+class ContactCreateView(generics.CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    permission_classes = [AllowAny] 
+
+class ManagePricesView(generics.ListCreateAPIView):
+    queryset = ServicePrice.objects.all()
+    serializer_class = ServicePriceSerializer
+    permission_classes = [IsAdminUser] 
+
+class UpdatePriceView(generics.RetrieveUpdateAPIView):
+    queryset = ServicePrice.objects.all()
+    serializer_class = ServicePriceSerializer
+    permission_classes = [IsAdminUser]

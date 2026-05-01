@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Booking, AdditionalService
-from .models import PropertySizeChoice
+from .models import PropertySizeChoice, ContactMessage, ServicePrice
 
 
 class AdditionalServiceSerializer(serializers.ModelSerializer):
@@ -87,3 +87,19 @@ class BookingListSerializer(serializers.ModelSerializer):
         if not payment:
             return 'unpaid'
         return payment.status
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    service_display = serializers.CharField(source='get_service_of_interest_display', read_only=True)
+
+    class Meta:
+        model = ContactMessage
+        fields = [
+            'id', 'first_name', 'last_name', 'email', 
+            'service_of_interest', 'service_display', 'message', 'created_at'
+        ]
+
+class ServicePriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServicePrice
+        fields = ['id', 'service_name', 'base_price']
