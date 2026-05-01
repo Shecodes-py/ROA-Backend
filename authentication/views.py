@@ -198,7 +198,7 @@ class RequestOTPView(APIView):
                 send_mail(
                     "Your Password Reset OTP",
                     f"Your OTP is {otp_code}. it expires in 10 minutes.",
-                    "noreply@yoursite.com",
+                    "noreply@roaleaning.com",
                     [email],
                     fail_silently=False,
                 )

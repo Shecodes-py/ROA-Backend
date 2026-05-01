@@ -135,7 +135,7 @@ def booking_options(request):
         'areas': [{'value': v, 'label': l} for v, l in AreaChoice.choices],
     })
 
-class ContactCreateView(generics.CreateAPIView):
+class ContactCreateView(generics.ListCreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
 
