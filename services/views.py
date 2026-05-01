@@ -138,7 +138,15 @@ def booking_options(request):
 class ContactCreateView(generics.CreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
-    permission_classes = [AllowAny] 
+
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.request.method == 'GET':
+            return [IsAdminUser()]
+        return [AllowAny()]
+
 
 class ManagePricesView(generics.ListCreateAPIView):
     queryset = ServicePrice.objects.all()
