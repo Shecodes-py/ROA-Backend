@@ -88,6 +88,10 @@ class BookingViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
+    def perform_create(self, serializer): #remove this function 
+        user = self.request.user if self.request.user.is_authenticated else None
+        serializer.save(user=user) 
+
     @swagger_auto_schema(operation_summary="List my bookings", tags=["Bookings"])
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
