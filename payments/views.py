@@ -1,9 +1,13 @@
 import json
 import logging
 
+import requests
+from django.http import JsonResponse
+
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.conf import settings
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -355,6 +359,36 @@ class PaymentHistoryView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+
+
+PI_API_KEY = settings.PI_API_KEY
+
+@csrf_exempt
+def approve_payment(request):
+    data = json.loads(request.body)
+    payment_id = data['paymentId']
+
+    res = requests.post(
+        f"https://api.minepi.com/v2/payments/{payment_id}/approve",
+        headers={"Authorization": f"Key {PI_API_KEY}"}
+    )
+    return JsonResponse(res.json())
+
+@csrf_exempt
+def complete_payment(request):
+    data = json.loads(request.body)
+    payment_id = data['paymentId']
+    txid = data['txid']
+
+    res = requests.post(
+        f"https://api.minepi.com/v2/payments/{payment_id}/complete",
+        headers={"Authorization": f"Key {PI_API_KEY}"}
+    )
+    
+    # Update your booking in DB here
+    booking = Booking.objects.get(payment_id=payment_id)
+    booking.status = StatusChoice.CONFIRMED
+    booking.save(update_fields=['status']   )
 
 class PaymentReceiptView(generics.RetrieveAPIView):
     """

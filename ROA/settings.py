@@ -176,7 +176,9 @@ REST_FRAMEWORK = {
     
 }
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000","https://roacleaning.com","https://www.roacleaning.com","https://roa-cleaning-services.vercel.app","https://roa-backend.up.railway.app","http://localhost:8000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000","https://roacleaning.com","https://www.roacleaning.com",
+            "https://roa-cleaning-services.vercel.app","https://roa-backend.up.railway.app","http://localhost:8000",
+            "https://app-cdn.minepi.com", "https://minepi.com", "https://roa-backend.onrender.com"]
 
 AUTH_USER_MODEL = "authentication.User"
  
@@ -227,3 +229,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+PI_API_KEY = os.getenv('PI_API_KEY')
