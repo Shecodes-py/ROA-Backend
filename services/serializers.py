@@ -33,30 +33,20 @@ class BookingSerializer(serializers.ModelSerializer):
         read_only_fields = [
             'status', 'created_at', 'updated_at',
             'base_price', 'addons_total', 'total_price',
-            'emergency_charge', 'customer_name', 'user' # remove this user field from writable fields
+            'emergency_charge', 'customer_name', 
         ]
-
-    # def create(self, validated_data):
-    #     additional_services = validated_data.pop('additional_services', [])
-
-    #     request = self.context.get('request')
-    #     if request and request.user.is_authenticated and not validated_data.get('user'):
-    #         validated_data['user'] = request.user
-
-    #     booking = Booking.objects.create(**validated_data)
-    #     booking.additional_services.set(additional_services)
-    #     # signal handles recalculation after M2M is set, no need to call save() again
-
-    #     return booking
 
     def create(self, validated_data):
         additional_services = validated_data.pop('additional_services', [])
 
         request = self.context.get('request')
-        user = request.user if (request and request.user.is_authenticated) else None
+        if request and request.user.is_authenticated and not validated_data.get('user'):
+            validated_data['user'] = request.user
 
-        booking = Booking.objects.create(user=user, **validated_data)
+        booking = Booking.objects.create(**validated_data)
         booking.additional_services.set(additional_services)
+        # signal handles recalculation after M2M is set, no need to call save() again
+
         return booking
 
     def update(self, instance, validated_data):

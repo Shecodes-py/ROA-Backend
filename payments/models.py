@@ -20,6 +20,12 @@ class Payment(models.Model):
 
     class Currency(models.TextChoices):
         NGN = 'NGN', 'Nigerian Naira'
+        PI = 'PI', 'Pi'  
+
+    # Add these fields to the Payment model:
+    pi_payment_id = models.CharField(max_length=255, blank=True, db_index=True)  
+    pi_txid = models.CharField(max_length=255, blank=True)  
+    pi_username = models.CharField(max_length=100, blank=True)  
 
     booking = models.ForeignKey(
         'services.Booking',

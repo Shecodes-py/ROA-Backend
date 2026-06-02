@@ -31,6 +31,84 @@ logger = logging.getLogger(__name__)
 paystack = PaystackService()
 
 # Create your views here.
+PI_API_KEY = settings.PI_API_KEY
+
+@csrf_exempt
+def approve_payment(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+        payment_id = data['paymentId']
+        booking_id = data.get('bookingId')
+
+        # Tell Pi: this payment is legitimate
+        res = requests.post(
+            f"https://api.minepi.com/v2/payments/{payment_id}/approve",
+            headers={"Authorization": f"Key {PI_API_KEY}"}
+        )
+
+        if res.status_code != 200:
+            return JsonResponse({'error': 'Pi approval failed', 'detail': res.json()}, status=400)
+
+        pi_data = res.json()
+
+        # Create a pending Payment record
+        booking = Booking.objects.filter(id=booking_id).first() if booking_id else None
+        Payment.objects.get_or_create(
+            pi_payment_id=payment_id,
+            defaults={
+                'booking': booking,
+                'amount': pi_data.get('amount', 0),
+                'currency': 'PI',
+                'status': Payment.Status.PENDING,
+                'reference': f"PI-{payment_id[:12]}",
+                'gateway_response': 'Approved',
+            }
+        )
+
+        return JsonResponse({'success': True, 'paymentId': payment_id})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def complete_payment(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+        payment_id = data['paymentId']
+        txid = data['txid']
+
+        # Tell Pi: confirm completion
+        res = requests.post(
+            f"https://api.minepi.com/v2/payments/{payment_id}/complete",
+            headers={"Authorization": f"Key {PI_API_KEY}"}
+        )
+
+        if res.status_code != 200:
+            return JsonResponse({'error': 'Pi completion failed', 'detail': res.json()}, status=400)
+
+        # Update payment record
+        payment = Payment.objects.filter(pi_payment_id=payment_id).first()
+        if payment:
+            payment.status = Payment.Status.SUCCESS
+            payment.pi_txid = txid
+            payment.save(update_fields=['status', 'pi_txid'])
+
+            # Update the linked booking
+            if payment.booking:
+                payment.booking.status = 'confirmed'
+                payment.booking.payment_method = 'pi'
+                payment.booking.save(update_fields=['status', 'payment_method'])
+
+        return JsonResponse({'success': True, 'txid': txid})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
 class InitiatePaymentView(APIView):
     """
     Start a Paystack payment for a booking.
@@ -358,37 +436,6 @@ class PaymentHistoryView(generics.ListAPIView):
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
-
-
-
-PI_API_KEY = settings.PI_API_KEY
-
-@csrf_exempt
-def approve_payment(request):
-    data = json.loads(request.body)
-    payment_id = data['paymentId']
-
-    res = requests.post(
-        f"https://api.minepi.com/v2/payments/{payment_id}/approve",
-        headers={"Authorization": f"Key {PI_API_KEY}"}
-    )
-    return JsonResponse(res.json())
-
-@csrf_exempt
-def complete_payment(request):
-    data = json.loads(request.body)
-    payment_id = data['paymentId']
-    txid = data['txid']
-
-    res = requests.post(
-        f"https://api.minepi.com/v2/payments/{payment_id}/complete",
-        headers={"Authorization": f"Key {PI_API_KEY}"}
-    )
-    
-    # Update your booking in DB here
-    booking = Booking.objects.get(payment_id=payment_id)
-    booking.status = StatusChoice.CONFIRMED
-    booking.save(update_fields=['status']   )
 
 class PaymentReceiptView(generics.RetrieveAPIView):
     """
