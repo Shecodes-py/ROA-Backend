@@ -74,6 +74,61 @@ def approve_payment(request):
 
 
 @csrf_exempt
+def incomplete_payment(request):
+    """
+    Called when Pi SDK finds an incomplete payment on authenticate().
+    We attempt to complete it if it was already approved, or cancel it otherwise.
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        data = json.loads(request.body)
+        payment = data.get('payment', {})
+        payment_id = payment.get('identifier')
+
+        if not payment_id:
+            return JsonResponse({'error': 'Missing payment identifier'}, status=400)
+
+        existing = Payment.objects.filter(pi_payment_id=payment_id).first()
+
+        if existing and existing.status == Payment.Status.SUCCESS:
+            return JsonResponse({'success': True, 'action': 'already_complete'})
+
+        # Try to complete it if the txid is present (user paid but completion was missed)
+        txid = payment.get('transaction', {}).get('txid')
+        if txid:
+            res = requests.post(
+                f"https://api.minepi.com/v2/payments/{payment_id}/complete",
+                headers={"Authorization": f"Key {PI_API_KEY}"},
+                json={"txid": txid},
+            )
+            if res.status_code == 200 and existing:
+                existing.status = Payment.Status.SUCCESS
+                existing.pi_txid = txid
+                existing.save(update_fields=['status', 'pi_txid'])
+                if existing.booking:
+                    existing.booking.status = 'confirmed'
+                    existing.booking.payment_method = 'pi'
+                    existing.booking.save(update_fields=['status', 'payment_method'])
+            return JsonResponse({'success': True, 'action': 'completed'})
+
+        # No txid — payment was never submitted, cancel it on Pi's side
+        requests.post(
+            f"https://api.minepi.com/v2/payments/{payment_id}/cancel",
+            headers={"Authorization": f"Key {PI_API_KEY}"},
+        )
+        if existing:
+            existing.status = Payment.Status.FAILED
+            existing.gateway_response = 'Cancelled incomplete payment'
+            existing.save(update_fields=['status', 'gateway_response'])
+
+        return JsonResponse({'success': True, 'action': 'cancelled'})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
 def complete_payment(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)

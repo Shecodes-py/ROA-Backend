@@ -11,6 +11,7 @@ urlpatterns = [
     path('webhook/', views.PaystackWebhookView.as_view(), name='payment-webhook'),
     path('history/', views.PaymentHistoryView.as_view(), name='payment-history'),
     path('receipt/<str:receipt_number>/', views.PaymentReceiptView.as_view(), name='payment-receipt'),
-    path('pi/approve/', views.approve_payment, name='pi-approve'),   # ✅
-    path('pi/complete/', views.complete_payment, name='pi-complete'), # ✅
+    path('pi/approve/', views.approve_payment, name='pi-approve'),
+    path('pi/complete/', views.complete_payment, name='pi-complete'),
+    path('pi/incomplete/', views.incomplete_payment, name='pi-incomplete'),
 ]
